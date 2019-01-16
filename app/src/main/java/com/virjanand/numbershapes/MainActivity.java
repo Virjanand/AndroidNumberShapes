@@ -8,24 +8,48 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    static class NumberShapes {
+
+        static boolean isTriangular(int n) {
+            int sum = 0;
+            int i = 1;
+            while(sum < n) {
+                sum += i;
+                if (sum == n) {
+                    return true;
+                }
+                i++;
+            }
+            return false;
+        }
+
+        static boolean isSquare(int n) {
+            int i = 1;
+            while (i*i < n) {
+                i++;
+            }
+            if (i*i == n) {
+                return true;
+            }
+            return false;
+        }
+    }
+
     public void clickCheckNumber(View view) {
-        Log.i("Info", "Click");
 
         EditText numberText = (EditText) findViewById(R.id.numberEditText);
         int number = Integer.parseInt(numberText.getText().toString());
 
         int sum = 0;
         String message;
-        for (int i = 1; i < number; i++) {
-            sum += i;
-            if (sum == number) {
-                Log.i("Number is ", "triangular.");
-            }
-            if (i * i == number) {
-                Log.i("Number is ", "square");
-            }
+
+        if (NumberShapes.isTriangular(number)) {
+            Log.i("Number is ", "triangular.");
         }
-//        Log.i("Number is ", "neither triangular nor square.");
+
+        if (NumberShapes.isSquare(number)) {
+            Log.i("Number is ", "square");
+        }
     }
 
     @Override
