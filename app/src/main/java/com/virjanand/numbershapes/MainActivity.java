@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,18 +39,32 @@ public class MainActivity extends AppCompatActivity {
     public void clickCheckNumber(View view) {
 
         EditText numberText = (EditText) findViewById(R.id.numberEditText);
-        int number = Integer.parseInt(numberText.getText().toString());
 
         int sum = 0;
-        String message;
+        String message = "";
 
-        if (NumberShapes.isTriangular(number)) {
-            Log.i("Number is ", "triangular.");
+        if (numberText.getText().toString().isEmpty()) {
+            message = "Please enter a number";
+        } else {
+            int number = Integer.parseInt(numberText.getText().toString());
+            if (NumberShapes.isTriangular(number)) {
+                message = "Triangular";
+            }
+
+            if (NumberShapes.isSquare(number)) {
+                if (message == "" || message == null) {
+                    message = "Square";
+                } else {
+                    message = "Both triangular and square";
+                }
+            }
+
+            if (message == "" || message == null) {
+                message = "Neither triangular nor square";
+            }
         }
 
-        if (NumberShapes.isSquare(number)) {
-            Log.i("Number is ", "square");
-        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
